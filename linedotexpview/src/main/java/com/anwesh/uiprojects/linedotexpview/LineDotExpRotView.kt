@@ -205,4 +205,13 @@ class LineDotExpRotView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : LineDotExpRotView {
+            val view : LineDotExpRotView = LineDotExpRotView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
