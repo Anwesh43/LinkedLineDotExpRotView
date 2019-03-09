@@ -21,6 +21,7 @@ val sizeFactor : Float = 2.9f
 val foreColor : Int = Color.parseColor("#311B92")
 val backColor : Int = Color.parseColor("#BDBDBD")
 val rFactor : Int = 5
+val delay : Long = 20
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
@@ -47,7 +48,7 @@ fun Canvas.drawLDERNode(i : Int, scale : Float, paint : Paint) {
         save()
         rotate(j * (90f + 90f * sc2))
         drawLine(0f, 0f, 0f, -lineSize, paint)
-        drawCircle(0f, lineSize, r, paint)
+        drawCircle(0f, -lineSize, r, paint)
         restore()
     }
     restore()
