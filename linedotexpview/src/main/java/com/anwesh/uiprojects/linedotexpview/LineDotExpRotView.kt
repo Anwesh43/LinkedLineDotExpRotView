@@ -182,4 +182,26 @@ class LineDotExpRotView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : LineDotExpRotView) {
+
+        private val animator : Animator = Animator(view)
+        private val lder : LineDotExpRot = LineDotExpRot(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            lder.draw(canvas, paint)
+            animator.animate {
+                lder.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            lder.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
