@@ -20,6 +20,7 @@ val strokeFactor : Int = 90
 val sizeFactor : Float = 2.9f
 val foreColor : Int = Color.parseColor("#311B92")
 val backColor : Int = Color.parseColor("#BDBDBD")
+val rFactor : Int = 5
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
@@ -35,16 +36,18 @@ fun Canvas.drawLDERNode(i : Int, scale : Float, paint : Paint) {
     val size : Float = gap / sizeFactor
     val sc1 : Float = scale.divideScale(0, 2)
     val sc2 : Float = scale.divideScale(1, 2)
+    val r : Float = size / rFactor
     paint.color = foreColor
     paint.strokeWidth = Math.min(w, h) / strokeFactor
     paint.strokeCap = Paint.Cap.ROUND
     save()
     translate(w / 2, gap * (i + 1))
     for (j in 0..(lines - 1)) {
-        val lineSize : Float = size * sc1.divideScale(j, lines)
+        val lineSize : Float = (size - r) * sc1.divideScale(j, lines)
         save()
         rotate(j * (90f + 90f * sc2))
         drawLine(0f, 0f, 0f, -lineSize, paint)
+        drawCircle(0f, lineSize, r, paint)
         restore()
     }
     restore()
